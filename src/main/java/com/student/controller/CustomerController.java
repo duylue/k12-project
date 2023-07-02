@@ -42,8 +42,7 @@ public class CustomerController {
     }
     @PostMapping("/create")
     public String postCreate(@ModelAttribute Customer customer) {
-        System.out.println(customer);
-
+        customerService.create(customer);
         return "redirect:/customer";
     }
 
