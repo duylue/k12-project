@@ -50,6 +50,8 @@ hone page
         <td th:text="${e.phone}"></td>
         <td th:text="${e.aId}"></td>
         <td th:text="${e.birthDay}"></td>
+        <td><a th:href="@{/customer/update/{cusId}(cusId=${e.cusId})}"> update </a></td>
+        <td><a th:href="@{/customer/del/{cusId}(cusId=${e.cusId})}"> delete </a></td>
     </tr>
     </tbody>
 <a href="/customer/create">Create</a>

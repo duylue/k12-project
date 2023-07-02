@@ -5,15 +5,15 @@
 
 <h2>Customer</h2>
 <div style="position: absolute;left: 40%">
-    <form action="http://localhost:8080/customer/create" method="post" th:object="${customer}">
-        <label for="cusid">cusid:</label><br>
-        <input type="text" th:field="*{cusId}" id="cusid"><br>
+    <form action="http://localhost:8080/customer/save" method="post" th:object="${customer}">
+
+        <input type="text" th:field="*{cusId}" name="cusId" id="cusid" hidden>
         <label for="cusname">cus name:</label><br>
-        <input type="text"  th:field="*{cusName}" id="cusname"  ><br><br>
+        <input type="text"  th:field="*{cusName}" id="cusname"  ><br>
         <label for="phone">phone:</label><br>
         <input type="text" id="phone" th:field="*{phone}"  ><br>
         <label for="birthday">birthday:</label><br>
-        <input type="text" id="birthday" th:field="*{birthDay}"><br><br>
+        <input type="date" id="birthday" th:field="*{birthDay}"><br><br>
         <label for="aid">aid :</label><br>
         <input type="text" id="aid" th:field="*{aId}"  ><br><br>
 
