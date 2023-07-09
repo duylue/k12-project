@@ -16,7 +16,9 @@ public class StudentController {
     private StudentService service;
     @GetMapping
     public String getHome() {
-        System.out.println(service.read().get(0));
+//        System.out.println(service.read().get(0));
+//        service.create(new Student());
+        service.findByAID(5);
         return "home";
     }
 
