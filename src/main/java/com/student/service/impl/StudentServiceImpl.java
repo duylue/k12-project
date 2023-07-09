@@ -5,25 +5,41 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
     @PersistenceUnit
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
     private EntityManager entityManager;
 
     private EntityTransaction transaction;
 
+    public StudentServiceImpl(EntityManagerFactory factory) {
+        this.factory = factory;
+        entityManager = factory.createEntityManager();
+
+    }
+
     @Override
     public ArrayList<Student> read() {
-        entityManager = factory.createEntityManager();
+        String query = "select * from student where em_id = :id";
+        String query2 = "select s from Student as s where s.emId = ?1";
         ArrayList<Student> list = (ArrayList<Student>)
-                entityManager.createQuery("select s from Student as s",Student.class).getResultList();
-        return list;
+                entityManager.createQuery(query2, Student.class)
+                        .setParameter(1,1).getResultList();
+        ArrayList<Student> list2 = (ArrayList<Student>)
+                entityManager.createNativeQuery(query, Student.class)
+                        .setParameter("id",1).getResultList();
+        return list2;
     }
 
     @Override
     public void create(Student student) {
+        transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(student);
+        transaction.commit();
 
     }
 

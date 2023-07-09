@@ -78,7 +78,7 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String postCreate(@ModelAttribute Customer customer) {
+    public String postCreate(@ModelAttribute("st") Customer customer) {
         dao.create(customer);
         return "redirect:/customer";
     }

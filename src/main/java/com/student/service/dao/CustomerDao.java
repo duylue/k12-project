@@ -31,8 +31,8 @@ public class CustomerDao implements CustomerService {
                 customer.setCusId(cusId);
                 customer.setCusName(cusname);
                 customer.setPhone(phone);
-                customer.setBirthDay(birthday);
-                customer.setaId(1);
+                customer.setBirthday(birthday);
+                customer.setAId(1);
                 arrayList.add(customer);
             }
             return arrayList;
@@ -48,7 +48,7 @@ public class CustomerDao implements CustomerService {
         try {
             int id = (int) (Math.random() * ( 1000 - 1 ));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date(simpleDateFormat.parse(customers.getBirthDay()).getTime());
+            Date date = new Date(simpleDateFormat.parse(customers.getBirthday()).getTime());
             preparedStatement = ConnectJdbc.con().prepareStatement("insert into customers values (?,?,?,?,?)");
             preparedStatement.setInt(1,id);
             preparedStatement.setString(2,customers.getCusName());

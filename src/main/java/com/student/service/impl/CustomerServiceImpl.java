@@ -1,87 +1,86 @@
 package com.student.service.impl;
 
 import com.student.model.Customer;
+import com.student.model.Orders;
+import com.student.model.User;
 import com.student.service.CustomerService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Service("svimpl")
 public class CustomerServiceImpl implements CustomerService {
-    ArrayList<Customer> customers = new ArrayList<>();
-    public void checklist(){
-        if (customers.isEmpty()){
-            customers.add(new Customer(1,"duy","sadas","sadsada",1));
-            customers.add(new Customer(2,"duy","sadas","sadsada",2));
-            customers.add(new Customer(3,"duy","sadas","sadsada",3));
-        }
 
+    private final EntityManagerFactory factory;
 
+    private EntityManager entityManager;
 
+    private EntityTransaction transaction;
+
+    public CustomerServiceImpl(EntityManagerFactory factory) {
+        this.factory = factory;
+        entityManager = factory.createEntityManager();
     }
+
     @Override
     public ArrayList<Customer> read() {
-        checklist();
-        return customers;
-    }
-
-    @Override
-    public void create(Customer customers) {
-        checklist();
-        customers.setCusId(this.customers.size()+1);
-        this.customers.add(customers);
-
-    }
-
-    @Override
-    public Customer findByID(int id) {
-        checklist();
-        for (Customer c: customers) {
-            if (c.getCusId() == id){
-                return c;
-            }
-        }
         return null;
     }
 
     @Override
-    public void update(Customer customers) {
-        for ( Customer c: this.customers) {
-            if (c.getCusId() == customers.getCusId()){
-                c.setCusName(customers.getCusName());
-                c.setBirthDay(customers.getBirthDay());
-                c.setPhone(customers.getPhone());
-                c.setaId(customers.getaId());
-                break;
-            }
-
-        }
-
+    public void create(Customer cc) {
+//        Customer customer =new Customer();
+//        customer.setBirthday("asdas");
+//        customer.setPhone("sdasd");
+//        customer.setCusName("adsad");
+//        transaction = entityManager.getTransaction();
+//        Orders orders = new Orders();
+//        ArrayList<Orders>list = new ArrayList<>();
+//        list.add(orders);
+//        customer.setOrders(list);
+//        orders.setCustomer(customer);
+//        transaction.begin();
+//        entityManager.persist(customer);
+//        entityManager.persist(orders);
+//        transaction.commit();
+//        Orders orders = entityManager.find(Orders.class,2);
+        transaction = entityManager.getTransaction();
+        Customer customer = entityManager.find(Customer.class, 1);
+        User user = new User();
+        customer.setUser(user);
+        user.setCustomer(customer);
+        transaction.begin();
+        entityManager.merge(customer);
+        entityManager.persist(user);
+        transaction.commit();
     }
 
     @Override
-    public void checkID(Customer customer) {
-        if (customer.getCusId()==0){
-            create(customer);
-        }else {
-            update(customer);
-        }
+    public void update(Customer customers) {
 
     }
 
     @Override
     public void delete(int id) {
-        checklist();
-        for (int i = 0; i < customers.size(); i++) {
-            if (id == customers.get(i).getaId()){
-                customers.remove(i);
-                break;
-            }
-        }
+
+    }
+
+    @Override
+    public void checkID(Customer customer) {
 
     }
 
     @Override
     public boolean checkCId(int cId) {
         return false;
+    }
+
+    @Override
+    public Customer findByID(int id) {
+        return null;
     }
 }
