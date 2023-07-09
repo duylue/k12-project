@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align: center">
+    <form method="post" action="/student/dk" th:object="${st}">
+        <h1>dang ky</h1>
+        <label>em name</label>
+        <input  th:field="*{emName}"  type="text"><br><br>
+        <label>birthday</label>
+        <input th:field="*{birthday}"  type="date"><br><br>
+        <label>phone</label>
+        <input  th:field="*{phone}"  type="text"><br><br>
+        <label>address </label>
+        <input  th:field="*{address}"  type="text"><br><br>
+        <button class="btn btn-primary" style="text-align: center" type="submit" >dang ky </button>
+    </form>
+</div>
+</body>
+</html>
