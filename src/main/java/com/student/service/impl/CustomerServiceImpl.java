@@ -2,9 +2,10 @@ package com.student.service.impl;
 
 import com.student.model.Customer;
 import com.student.service.CustomerService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-
+@Service("svimpl")
 public class CustomerServiceImpl implements CustomerService {
     ArrayList<Customer> customers = new ArrayList<>();
     public void checklist(){

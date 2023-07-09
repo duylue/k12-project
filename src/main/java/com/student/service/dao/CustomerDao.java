@@ -3,6 +3,7 @@ package com.student.service.dao;
 import com.student.conn.ConnectJdbc;
 import com.student.model.Customer;
 import com.student.service.CustomerService;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
-
+@Service("svdao")
 public class CustomerDao implements CustomerService {
    private PreparedStatement preparedStatement;
 
