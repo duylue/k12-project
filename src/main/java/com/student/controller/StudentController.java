@@ -1,13 +1,15 @@
 package com.student.controller;
 
 import com.student.model.Student;
+import com.student.model.StudentsDto;
 import com.student.service.impl.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -15,11 +17,28 @@ public class StudentController {
     @Autowired
     private StudentService service;
     @GetMapping
-    public String getHome() {
-//        System.out.println(service.read().get(0));
-//        service.create(new Student());
-        service.findByAID(5);
-        return "home";
+    public String getHome(Model model) {
+        ArrayList<StudentsDto> list = service.read();
+        model.addAttribute("list",list);
+
+        return "student/students";
+    }
+    @GetMapping("/register")
+    public String register(Model model){
+        model.addAttribute("student", new Student());
+        return "student/register";
+    }
+    @GetMapping("/update/{id}")
+    public String update(Model model ,@PathVariable int id){
+        Student student = service.findByID(id);
+        model.addAttribute("student",student);
+        return "student/register";
+    }
+    @PostMapping("/save")
+    public String save(@ModelAttribute Student student){
+        service.create(student);
+        System.out.println(student);
+        return "redirect:/student";
     }
 
 

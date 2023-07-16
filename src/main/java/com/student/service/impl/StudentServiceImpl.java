@@ -2,6 +2,7 @@ package com.student.service.impl;
 
 import com.student.model.Address;
 import com.student.model.Student;
+import com.student.model.StudentsDto;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
@@ -25,53 +26,53 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ArrayList<Student> read() {
+    public ArrayList<StudentsDto> read() {
+        entityManager = factory.createEntityManager();
+        String query = "select s.*, a.province from student as s ," +
+                " address as a where s.aid = a.aid order by s.sid";
 
-        ArrayList<Student> list = (ArrayList<Student>)
-                entityManager.createQuery("select s from Student as s", Student.class).getResultList();
-        if (list.isEmpty()) {
-            return null;
-        }
+        ArrayList<StudentsDto> list = (ArrayList<StudentsDto>) entityManager
+                .createNativeQuery(query, StudentsDto.class).getResultList();
+
         return list;
     }
 
     @Override
 
     public void create(Student student) {
-        transaction = entityManager.getTransaction();
-        student.setSname("adsa");
-        Date date = new Date();
-        student.setBirthday(date);
-        student.setPhone("dsadsd");
-        Address address = entityManager.find(Address.class,5);
-        student.setAddress(address);
-//        Address address = new Address();
-//        address.setProvince("Hn");
-//        ArrayList<Student> students = new ArrayList<>();
-//        students.add(student);
-//        address.setStudents(students);
-//        student.setAddress(address);
-        transaction.begin();
-        entityManager.persist(student);
-        transaction.commit();
+        if (student.getSid()>0){
+            update(student);
+        }else {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(student);
+            transaction.commit();
+        }
+
 
 
     }
 
     @Override
     public List<Student> findByAID(int aid) {
-        String  queryHQL = "select s from  Student as s where address.aid =?1";
-        String querySQL ="select * from student where aid = ?1";
+        String queryHQL = "select s from  Student as s where address.aid =?1";
+        String querySQL = "select * from student where aid = ?1";
 //        List<Student> list = entityManager.createQuery(queryHQL,Student.class)
 //                .setParameter(1,aid).getResultList();
+        List<Student> list2 = entityManager.createNativeQuery(querySQL, Student.class)
+                .setParameter(1, aid).getResultList();
 
-        List<Student> list2 = entityManager.createNativeQuery(querySQL,Student.class)
-                .setParameter(1,aid).getResultList();
         return list2;
     }
 
     @Override
     public void update(Student student) {
+        transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.merge(student);
+
+        transaction.commit();
+
 
     }
 
@@ -79,9 +80,9 @@ public class StudentServiceImpl implements StudentService {
     public void delete(int id) {
 
     }
-
     @Override
     public Student findByID(int id) {
-        return null;
+        Student student = entityManager.find(Student.class, id);
+        return student;
     }
 }

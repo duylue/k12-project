@@ -2,12 +2,13 @@ package com.student.service.impl;
 
 import com.student.model.Customer;
 import com.student.model.Student;
+import com.student.model.StudentsDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface StudentService {
-    ArrayList<Student> read();
+    ArrayList<StudentsDto> read();
 
     void create(Student student);
 

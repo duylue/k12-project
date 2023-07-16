@@ -27,7 +27,7 @@ public class Student {
     @CreatedDate
     private Date birthday;
     private String phone;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "aid")
 
     private Address address;
