@@ -15,7 +15,6 @@ import java.util.Date;
 @ToString
 @Entity
 public class StudentsDto {
-
     @Id
     private int sid;
     private String sname;

@@ -56,11 +56,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findByAID(int aid) {
         String queryHQL = "select s from  Student as s where address.aid =?1";
-        String querySQL = "select * from student where aid = ?1";
+        String querySQL = "select * from student where aid = ?1 and id = :id";
 //        List<Student> list = entityManager.createQuery(queryHQL,Student.class)
 //                .setParameter(1,aid).getResultList();
         List<Student> list2 = entityManager.createNativeQuery(querySQL, Student.class)
-                .setParameter(1, aid).getResultList();
+                .setParameter(1, aid).
+        setParameter("id",2).getResultList();
 
         return list2;
     }
@@ -70,7 +71,6 @@ public class StudentServiceImpl implements StudentService {
         transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.merge(student);
-
         transaction.commit();
 
 
