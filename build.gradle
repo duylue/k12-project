@@ -16,6 +16,9 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-api
+    compileOnly group: 'jakarta.platform', name: 'jakarta.jakartaee-api', version: '8.0.0'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
