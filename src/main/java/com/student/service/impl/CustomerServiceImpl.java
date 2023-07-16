@@ -3,12 +3,16 @@ package com.student.service.impl;
 import com.student.jdbc.ConnectJdbc;
 import com.student.model.Customer;
 import com.student.service.CustomerService;
+import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+@Service
 public class CustomerServiceImpl implements CustomerService {
+EntityManager entityManager;
    private PreparedStatement statement ;
    private Connection con = ConnectJdbc.connection();
 
