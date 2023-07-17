@@ -1,10 +1,7 @@
 package com.student.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +18,7 @@ public class Employee {
     private String ename;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "dd-mm-yyyy")
+    @Temporal(value = TemporalType.DATE)
     private Date birthday;
     private int aid;
 
