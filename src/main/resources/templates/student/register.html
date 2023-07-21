@@ -32,6 +32,7 @@
       <input th:field="*{sid}" type="text"  hidden>
       <label>Full Name : </label>
       <input th:field="*{sname}" type="text" placeholder="Họ tên"><br><br>
+      <p th:if="${#fields.hasErrors('sname')}" th:errors="*{sname}"></p>
       <label>Birthday : </label>
       <input th:field="*{birthday}" id="birthday" class="c1" type="date"><br><br>
       <label>Address : </label>
