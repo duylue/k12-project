@@ -1,9 +1,11 @@
 package com.student.controller;
 
+import com.student.repository.ProductRepository;
 import com.student.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,9 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
     @Autowired
     ProductService productService;
+    @Autowired
+    ProductRepository repository;
+
     @GetMapping
+    @Transactional
     public String home(){
-        System.out.println(productService.getInfor().get(0));
+        repository.insertProduct(100,1,"tst1");
+        repository.insertProduct(101,1,"tst1");
+        repository.insertProduct(101,1,"tst1");
+        repository.insertProduct(102,1,"tst1");
         return "home";
     }
 }

@@ -3,7 +3,9 @@ package com.student.service.impl;
 import com.student.model.Address;
 import com.student.model.Student;
 import com.student.model.StudentsDto;
+import com.student.repository.StudentRepository;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,9 +42,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
 
     public void create(Student student) {
-        if (student.getSid()>0){
+        if (student.getSid() > 0) {
             update(student);
-        }else {
+        } else {
             transaction = entityManager.getTransaction();
             transaction.begin();
             entityManager.persist(student);
@@ -50,6 +52,15 @@ public class StudentServiceImpl implements StudentService {
         }
 
 
+    }
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Override
+    public Student save(Student student) {
+
+        return studentRepository.save(student);
 
     }
 
@@ -61,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
 //                .setParameter(1,aid).getResultList();
         List<Student> list2 = entityManager.createNativeQuery(querySQL, Student.class)
                 .setParameter(1, aid).
-        setParameter("id",2).getResultList();
+                setParameter("id", 2).getResultList();
 
         return list2;
     }
@@ -80,6 +91,7 @@ public class StudentServiceImpl implements StudentService {
     public void delete(int id) {
 
     }
+
     @Override
     public Student findByID(int id) {
         Student student = entityManager.find(Student.class, id);

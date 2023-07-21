@@ -28,10 +28,11 @@
   <h1 style="text-align: center">Dang Ky</h1>
   <div style="margin-left: 180px;margin-top: 50px;">
 
-    <form action="/student/save" method="post" th:object="${student}">
+    <form action="/student/save" method="post" th:object="${student}" enctype="multipart/form-data">
       <input th:field="*{sid}" type="text"  hidden>
       <label>Full Name : </label>
       <input th:field="*{sname}" type="text" placeholder="Họ tên"><br><br>
+      <p th:if="${#fields.hasErrors('sname')}" th:errors="*{sname}"></p>
       <label>Birthday : </label>
       <input th:field="*{birthday}" id="birthday" class="c1" type="date"><br><br>
       <label>Address : </label>
@@ -42,6 +43,8 @@
       </select><br><br>
       <label>Phone  : </label>
       <input type="text" th:field="*{phone}" placeholder="phone" style="margin-left: 22px"><br><br>
+      <label>Avatar  : </label>
+      <input type="file" name="file"  style="margin-left: 22px"><br><br>
       <button type="submit" style="margin-left: 100px">Dang ky</button>
     </form>
   </div>

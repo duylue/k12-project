@@ -11,7 +11,7 @@ public interface StudentService {
     ArrayList<StudentsDto> read();
 
     void create(Student student);
-
+    Student save (Student student);
     void update(Student student);
 
     void delete(int id);
