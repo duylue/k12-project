@@ -33,7 +33,10 @@ public class CustomerController {
     CustomerService dao = new CustomerDao();
 
     @GetMapping
-    public String getHome(Model model) {
+    public String getHome(Model model,@CookieValue(value = "username",defaultValue = "") String username,
+                          @CookieValue(value = "duytest",defaultValue = "") String duytest) {
+        System.out.println(duytest);
+        System.out.println(username);
         ArrayList<Customer> customersList = dao.read();
         model.addAttribute("list", customersList);
         return "customer/home";

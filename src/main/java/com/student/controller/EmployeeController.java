@@ -16,7 +16,8 @@ public class EmployeeController {
     private EmployeeService service;
 
     @GetMapping
-    public String getAll(Model model) {
+    public String getAll(Model model,@SessionAttribute("username-ss") String username) {
+        System.out.println(username);
         List<Employee> list = service.getAll();
         model.addAttribute("list",list);
         return "/employee/list";
