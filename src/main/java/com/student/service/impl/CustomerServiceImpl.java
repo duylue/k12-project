@@ -5,10 +5,14 @@ import com.student.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 @Service("svimpl")
 public class CustomerServiceImpl implements CustomerService {
     ArrayList<Customer> customers = new ArrayList<>();
     public void checklist(){
+
+
         if (customers.isEmpty()){
             customers.add(new Customer(1,"duy","sadas","sadsada",1));
             customers.add(new Customer(2,"duy","sadas","sadsada",2));

@@ -6,12 +6,17 @@ import com.student.service.dao.CustomerDao;
 import com.student.test.ClassA;
 import com.student.test.ClassB;
 import com.student.test.ClassC;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ejb.Local;
 import java.util.ArrayList;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/customer")
@@ -41,16 +46,13 @@ public class CustomerController {
 
     @Autowired
     ClassA classA;
-
+    @Autowired
+    MessageSource messageSource;
     @GetMapping("/test")
-    public String test(Model model) {
-        classA.getHello();
-        System.out.println(classA);
-        ClassA a = classA;
-        ClassA a2 = a;
-        System.out.println(a);
-        System.out.println(a2);
-        return "customer/home";
+    public String test(Model model, HttpServletRequest request, HttpServletResponse response) {
+        String message = messageSource.getMessage("hello", null, "default message", Locale.JAPANESE);
+        model.addAttribute("message", message);
+        return "/home";
     }
 
     @GetMapping("/create")

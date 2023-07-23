@@ -40,6 +40,18 @@
 
     </tbody>
   </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination" th:each="item, i :${list}">
+
+      <li class="page-item"><a class="page-link" th:href="@{/employee/paging(page=${i.index})}" th:text="${i.index}"></a></li>
+
+    </ul>
+  </nav>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination" th:each="item, i :${list}">
+      <li class="page-item"><a class="page-link" th:href="@{/employee/paging(page=${i.index})}"  th:text="${i.index}" ></a></li>
+    </ul>
+  </nav>
 </div>
 </body>
 </html>
