@@ -50,11 +50,15 @@ public class CustomerController {
     MessageSource messageSource;
     @GetMapping("/test")
     public String test(Model model, HttpServletRequest request, HttpServletResponse response) {
-        String message = messageSource.getMessage("hello", null, "default message", Locale.JAPANESE);
+        String message = messageSource.getMessage("lang.mes1", null, "default message", Locale.getDefault());
         model.addAttribute("message", message);
+
         return "/home";
     }
-
+    @GetMapping("/international")
+    public String getInternationalPage() {
+        return "international";
+    }
     @GetMapping("/create")
     public String create(Model model) {
         Customer customer = new Customer();
